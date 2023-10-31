@@ -2,12 +2,25 @@ from pydantic import BaseModel
 from typing import List, Optional
 from enum import Enum
 
+class SourceCode(BaseModel):
+    code: str
+    language: str
+    metadata: dict
 
+class LangchainTools(BaseModel):
+    tool_name: str
+    version: str
+    metadata: dict
+
+class CodeDocs(BaseModel):
+    document_id: str
+    content: str
+    metadata: dict
+    
 class Source(str, Enum):
     email = "email"
     file = "file"
     chat = "chat"
-
 
 class DocumentMetadata(BaseModel):
     source: Optional[Source] = None

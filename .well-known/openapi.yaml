@@ -1,15 +1,15 @@
 openapi: 3.0.2
 info:
   title: Retrieval Plugin API
-  description: A retrieval API for querying and filtering documents based on natural language queries and metadata
+  description: A retrieval API for querying and filtering documents based on natural language queries and metadata within the cda.data-lake.
   version: 1.0.0
   servers:
-    - url: https://your-app-url.com
+    - url: https://cdaprod.dev
 paths:
   /query:
     post:
       summary: Query
-      description: Accepts search query objects array each with query and optional filter. Break down complex questions into sub-questions. Refine results by criteria, e.g. time / source, don't do this often. Split queries if ResponseTooLargeError occurs.
+      description: Accepts search query objects array each with query and optional filter. Break down complex questions into sub-questions. Refine results by criteria, e.g., time / source. Split queries if ResponseTooLargeError occurs.
       operationId: query_query_post
       requestBody:
         content:
@@ -32,6 +32,7 @@ paths:
                 $ref: "#/components/schemas/HTTPValidationError"
       security:
         - HTTPBearer: []
+
 components:
   schemas:
     DocumentChunkMetadata:

@@ -20,6 +20,7 @@ EMBEDDINGS_BATCH_SIZE = int(os.environ.get("OPENAI_EMBEDDING_BATCH_SIZE", 128)) 
 MAX_NUM_CHUNKS = 10000  # The maximum number of chunks to generate from a text
 
 
+
 def get_text_chunks(text: str, chunk_token_size: Optional[int]) -> List[str]:
     """
     Split a text into chunks of ~CHUNK_SIZE tokens, based on punctuation and newline boundaries.
@@ -96,6 +97,27 @@ def get_text_chunks(text: str, chunk_token_size: Optional[int]) -> List[str]:
 
     return chunks
 
+### >>> NEW
+
+def create_document_chunks(
+    doc: Union[Document, SourceCode, LangchainTools, CodeDocs], 
+    chunk_token_size: Optional[int]
+) -> Tuple[List[DocumentChunk], str]:
+    # ... rest of your code
+
+    # Modify this section to handle different data types
+    if isinstance(doc, SourceCode):
+        text = doc.code
+    elif isinstance(doc, LangchainTools):
+        text = f"{doc.tool_name} {doc.version}"
+    elif isinstance(doc, CodeDocs):
+        text = doc.content
+    else:  # Assuming it's of type Document
+        text = doc.text
+
+    # ... rest of your code
+# <<< NEW
+# >>> OLD
 
 def create_document_chunks(
     doc: Document, chunk_token_size: Optional[int]
@@ -146,6 +168,28 @@ def create_document_chunks(
     # Return the list of chunks and the document id
     return doc_chunks, doc_id
 
+### >>> NEW
+
+def create_document_chunks(
+    doc: Union[Document, SourceCode, LangchainTools, CodeDocs], 
+    chunk_token_size: Optional[int]
+) -> Tuple[List[DocumentChunk], str]:
+    # ... rest of your code
+
+    # Modify this section to handle different data types
+    if isinstance(doc, SourceCode):
+        text = doc.code
+    elif isinstance(doc, LangchainTools):
+        text = f"{doc.tool_name} {doc.version}"
+    elif isinstance(doc, CodeDocs):
+        text = doc.content
+    else:  # Assuming it's of type Document
+        text = doc.text
+
+    # ... rest of your code
+    
+# << NEW
+# >>> OLD 
 
 def get_document_chunks(
     documents: List[Document], chunk_token_size: Optional[int]
