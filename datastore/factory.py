@@ -7,6 +7,15 @@ async def get_datastore() -> DataStore:
     assert datastore is not None
 
     match datastore:
+    
+				case "minio":
+				    from your_module import MinioDataStore  # Replace 'your_module' with the actual module name
+				    return MinioDataStore()  # Add any required arguments
+				
+				case "minio_langchain":
+				    from your_module import MinioLangchainDataStore  # Replace 'your_module' with the actual module name
+				    return MinioLangchainDataStore()  # Add any required arguments
+
         case "chroma":
             from datastore.providers.chroma_datastore import ChromaDataStore
 
