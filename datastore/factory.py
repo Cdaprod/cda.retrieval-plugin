@@ -1,20 +1,24 @@
 from datastore.datastore import DataStore
+from hybrid_datastore import HybridDataStore
 import os
 
 
 async def get_datastore() -> DataStore:
     datastore = os.environ.get("DATASTORE")
     assert datastore is not None
+ 
+    match datastore: 
+        case "minio":
+            from minio_datastore import MinioDataStore
+            return MinioDataStore()
 
-    match datastore:
-    
-				case "minio":
-				    from your_module import MinioDataStore  # Replace 'your_module' with the actual module name
-				    return MinioDataStore()  # Add any required arguments
-				
-				case "minio_langchain":
-				    from your_module import MinioLangchainDataStore  # Replace 'your_module' with the actual module name
-				    return MinioLangchainDataStore()  # Add any required arguments
+        case "weaviate":
+            from weaviate_datastore import WeaviateDataStore
+            return WeaviateDataStore()
+
+        case "hybrid":
+            # Hybrid datastore integrates both MinIO and Weaviate
+            return HybridDataStore()
 
         case "chroma":
             from datastore.providers.chroma_datastore import ChromaDataStore
@@ -29,10 +33,7 @@ async def get_datastore() -> DataStore:
             from datastore.providers.pinecone_datastore import PineconeDataStore
 
             return PineconeDataStore()
-        case "weaviate":
-            from datastore.providers.weaviate_datastore import WeaviateDataStore
-
-            return WeaviateDataStore()
+            
         case "milvus":
             from datastore.providers.milvus_datastore import MilvusDataStore
 
@@ -70,9 +71,12 @@ async def get_datastore() -> DataStore:
                 ElasticsearchDataStore,
             )
 
-            return ElasticsearchDataStore()
+            return ElasticsearchDataStore() 
         case _:
             raise ValueError(
                 f"Unsupported vector database: {datastore}. "
                 f"Try one of the following: llama, elasticsearch, pinecone, weaviate, milvus, zilliz, redis, azuresearch, or qdrant"
             )
+
+# Example usage
+# datastore = asyncio.run(get_datastore())
