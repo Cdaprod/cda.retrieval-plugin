@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Union
 import uuid
 import os
 from models.models import Document, DocumentChunk, DocumentChunkMetadata
