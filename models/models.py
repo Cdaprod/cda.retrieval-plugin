@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Union, List, Optional
 from enum import Enum
 
 class SourceCode(BaseModel):
