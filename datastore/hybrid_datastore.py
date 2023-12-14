@@ -1,8 +1,8 @@
 from typing import List, Dict, Optional
 import asyncio
 
-from weaviate_datastore import WeaviateDataStore
-from minio_datastore import MinioDataStore
+from datastore.providers.weaviate_datastore import WeaviateDataStore
+from datastore.providers.minio_datastore import MinioDataStore
 from models.models import Document, DocumentChunk, Query, QueryResult, QueryWithEmbedding, DocumentMetadataFilter
 from services.chunks import get_document_chunks
 from services.openai import get_embeddings
