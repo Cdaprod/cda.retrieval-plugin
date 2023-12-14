@@ -1,5 +1,5 @@
 from datastore.datastore import DataStore
-from hybrid_datastore import HybridDataStore
+from datastore.hybrid_datastore import HybridDataStore
 import os
 
 async def get_datastore() -> DataStore:
