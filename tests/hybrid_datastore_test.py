@@ -6,6 +6,10 @@ from models.models import Document, BucketObject, Bucket
 class MockMinIO:
     def __init__(self):
         self.bucket_name = "mock_bucket"
+        
+    def upload_object(self, bucket_name, object_name, file_path):
+        # Simulate upload functionality
+        pass
 
     def list_objects(self, bucket_name):
         return [BucketObject(id="1", object_name="sample.txt", object_type="text", size=1024)] 
