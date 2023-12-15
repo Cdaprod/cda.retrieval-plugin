@@ -15,7 +15,7 @@ class MinioDataStore:
         self.minio_url = os.getenv('MINIO_URL')
         self.minio_access_key = os.getenv('MINIO_ACCESS_KEY')
         self.minio_secret_key = os.getenv('MINIO_SECRET_KEY')
-        self.bucket_name = os.getenv('MINIO_BUCKET_NAME', 'default-bucket')
+        self.bucket_name = os.getenv('MINIO_BUCKET_NAME', 'chatgpt')
 
         if not all([self.minio_url, self.minio_access_key, self.minio_secret_key, self.bucket_name]):
             raise ValueError("Missing MinIO configuration details in environment variables")
