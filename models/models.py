@@ -33,6 +33,7 @@ class BucketObject(BaseModel):
     object_type: Optional[str] = None
     size: Optional[int] = None
     path: Optional[str]
+    type: Optional[str]
 
 class Bucket(BaseModel):
     id: str = Field(description="Unique identifier for the bucket.")
@@ -81,7 +82,7 @@ class DocumentChunkWithScore(DocumentChunk):
     score: float
 
 class Document(BaseModel):
-    id: Optional[str] = None
+    id: Optional[str]
     text: str
     metadata: Optional[DocumentMetadata] = None
     file_path: Optional[str]
