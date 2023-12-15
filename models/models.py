@@ -32,12 +32,13 @@ class BucketObject(BaseModel):
     object_name: str
     object_type: Optional[str] = None
     size: Optional[int] = None
+    path: Optional[str]
 
 class Bucket(BaseModel):
     id: str = Field(description="Unique identifier for the bucket.")
     name: str
     objects: List[BucketObject]
-    path: Optional[str] = None
+
     
 # Example usage for Bucket model:
 # bucket = Bucket(name="my_bucket", objects=[BucketObject(object_name="file1.txt", object_type="text", size=1024)])
@@ -83,7 +84,7 @@ class Document(BaseModel):
     id: Optional[str] = None
     text: str
     metadata: Optional[DocumentMetadata] = None
-    file_path: Optional[str] = None
+    file_path: Optional[str]
 
 class DocumentWithChunks(Document):
     chunks: List[DocumentChunk]
