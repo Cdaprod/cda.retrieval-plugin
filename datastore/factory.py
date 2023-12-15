@@ -8,11 +8,11 @@ async def get_datastore() -> DataStore:
 
     match datastore:
         case "minio":
-            from minio_datastore import MinioDataStore
+            from datastore.providers.minio_datastore import MinioDataStore
             return MinioDataStore()
 
         case "weaviate":
-            from weaviate_datastore import WeaviateDataStore
+            from datastore.providers.weaviate_datastore import WeaviateDataStore
             return WeaviateDataStore()
 
         case "hybrid":
