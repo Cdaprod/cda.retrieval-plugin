@@ -4,12 +4,11 @@ from models.models import Document, BucketObject, Bucket
 
 # Mocks for MinIO and Weaviate to simulate their behavior
 class MockMinIO:
-    def upload_object(self, bucket_name, object_name, file_path):
-        # Simulate upload functionality
-        pass
+    def __init__(self):
+        self.bucket_name = "mock_bucket"
 
     def list_objects(self, bucket_name):
-        return [BucketObject(object_name="sample.txt", object_type="text", size=1024)]
+        return [BucketObject(id="1", object_name="sample.txt", object_type="text", size=1024)] 
 
 class MockWeaviate:
     def upsert(self, documents):
