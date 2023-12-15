@@ -11,8 +11,16 @@ class MockMinIO:
         pass
 
     def list_objects(self, bucket_name):
-        return [BucketObject(id="1", object_name="sample.txt", object_type="text", size=1024, path="mock/path/sample.txt")]
-
+        return [
+            BucketObject(
+                id="1",
+                object_name="sample.txt",
+                object_type="text",
+                size=1024,
+                path="mock/path/sample.txt"
+            )
+        ]
+ 
 # Test functions
 @pytest.mark.asyncio
 async def test_batch_ingest_from_bucket(hybrid_store):
@@ -21,10 +29,15 @@ async def test_batch_ingest_from_bucket(hybrid_store):
 
 @pytest.mark.asyncio
 async def test_upsert(hybrid_store):
-    documents = [Document(id="doc1", text="Sample text", file_path="mock/path/doc1.txt")]
+    documents = [
+        Document(
+            id="doc1",
+            text="Sample text",
+            file_path="mock/path/doc1.txt"
+        )
+    ]
     result = await hybrid_store.upsert(documents)
     assert "doc1" in result
-
 
 class MockWeaviate:
     def upsert(self, documents):
