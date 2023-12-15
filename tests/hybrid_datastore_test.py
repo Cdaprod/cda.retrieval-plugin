@@ -38,3 +38,4 @@ class TestHybridDataStore(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+#poetry run pytest tests/hybrid_datastore_test.py::TestHybridDataStore 
