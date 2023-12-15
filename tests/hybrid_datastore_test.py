@@ -19,24 +19,6 @@ class MockWeaviate:
 
 # The unit test class
 class TestHybridDataStore(unittest.TestCase):
-    def setUp(self):
-        # Set up mock environment variables for MinIO
-        self.env_patcher = patch.dict('os.environ', {
-            'MINIO_URL': 'http://localhost:9000',
-            'MINIO_ACCESS_KEY': 'minioadmin',
-            'MINIO_SECRET_KEY': 'minioadmin',
-            # Add other necessary MinIO environment variables
-        })
-        self.env_patcher.start()
-
-        # Replace actual MinIO and Weaviate clients with mocks
-        self.hybrid_store = HybridDataStore()
-        self.hybrid_store.minio_store = MockMinIO()
-        self.hybrid_store.weaviate_store = MockWeaviate()
-
-    def tearDown(self):
-        self.env_patcher.stop()
-
     async def test_batch_ingest_from_bucket(self):
         # Test batch ingest functionality - note the 'await' keyword
         result = await self.hybrid_store.batch_ingest_from_bucket("my_bucket")
