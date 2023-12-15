@@ -1,5 +1,4 @@
-import unittest
-from unittest.mock import patch
+import pytest
 from datastore.hybrid_datastore import HybridDataStore
 from models.models import Document, BucketObject, Bucket
 
@@ -17,19 +16,20 @@ class MockWeaviate:
         # Simulate upsert functionality
         return ["doc1", "doc2"]
 
-# The unit test class
-class TestHybridDataStore(unittest.TestCase):
-    async def test_batch_ingest_from_bucket(self):
-        # Test batch ingest functionality - note the 'await' keyword
-        result = await self.hybrid_store.batch_ingest_from_bucket("my_bucket")
-        self.assertIn("sample.txt", result)  # Check if sample.txt object was ingested
+@pytest.fixture
+def hybrid_store():
+    store = HybridDataStore()
+    store.minio_store = MockMinIO()
+    store.weaviate_store = MockWeaviate()
+    return store
 
-    async def test_upsert(self):
-        # Test the upsert function with sample data - note the 'await' keyword
-        documents = [Document(id="doc1", text="Sample text")]
-        result = await self.hybrid_store.upsert(documents)
-        self.assertIn("doc1", result)  # Check if doc1 is in the result
+@pytest.mark.asyncio
+async def test_batch_ingest_from_bucket(hybrid_store):
+    result = await hybrid_store.batch_ingest_from_bucket("my_bucket")
+    assert "sample.txt" in result
 
-# Running the tests
-if __name__ == '__main__':
-    unittest.main()
+@pytest.mark.asyncio
+async def test_upsert(hybrid_store):
+    documents = [Document(id="doc1", text="Sample text")]
+    result = await hybrid_store.upsert(documents)
+    assert "doc1" in result
