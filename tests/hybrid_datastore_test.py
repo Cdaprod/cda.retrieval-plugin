@@ -1,4 +1,3 @@
-import async
 import unittest
 from unittest.mock import patch
 from datastore.hybrid_datastore import HybridDataStore
