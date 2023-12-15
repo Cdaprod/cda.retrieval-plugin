@@ -30,10 +30,10 @@ class MarkdownDocument(BaseModel):
 class BucketObject(BaseModel):
     id: str = Field(description="Unique identifier for the bucket object.")
     object_name: str
-    object_type: Optional[str] = None
-    size: Optional[int] = None
-    path: Optional[str]
-    type: Optional[str]
+    object_type: Optional[str] = Field(default=None, description="Type of the object")
+    size: Optional[int] = Field(default=None, description="Size of the object in bytes")
+    path: Optional[str] = Field(default=None, description="Path of the object")
+    type: Optional[str] = Field(default=None, description="File extension or MIME type")
 
 class Bucket(BaseModel):
     id: str = Field(description="Unique identifier for the bucket.")
@@ -82,10 +82,10 @@ class DocumentChunkWithScore(DocumentChunk):
     score: float
 
 class Document(BaseModel):
-    id: Optional[str]
+    id: str
     text: str
     metadata: Optional[DocumentMetadata] = None
-    file_path: Optional[str]
+    file_path: Optional[str] = Field(default=None, description="File path in the storage system")
 
 class DocumentWithChunks(Document):
     chunks: List[DocumentChunk]

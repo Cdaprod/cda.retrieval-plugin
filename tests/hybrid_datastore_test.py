@@ -29,15 +29,10 @@ async def test_batch_ingest_from_bucket(hybrid_store):
 
 @pytest.mark.asyncio
 async def test_upsert(hybrid_store):
-    documents = [
-        Document(
-            id="doc1",
-            text="Sample text",
-            file_path="mock/path/doc1.txt"
-        )
-    ]
+    documents = [Document(id="doc1", text="Sample text", file_path="mock/path/doc1.txt")]
     result = await hybrid_store.upsert(documents)
-    assert "doc1" in result
+    # Ensure result is a list of document IDs
+    assert isinstance(result, list) and "doc1" in result
 
 class MockWeaviate:
     def upsert(self, documents):
