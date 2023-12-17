@@ -20,7 +20,7 @@ from models.models import (
     Source,
 )
 
-WEAVIATE_URL_DEFAULT = "http://localhost:8080"
+WEAVIATE_URL_DEFAULT = "http://cda-desktop-1.tailb3ac8.ts.net:8082"
 WEAVIATE_CLASS = os.environ.get("WEAVIATE_CLASS", "OpenAIDocument")
 
 WEAVIATE_BATCH_SIZE = int(os.environ.get("WEAVIATE_BATCH_SIZE", 20))
