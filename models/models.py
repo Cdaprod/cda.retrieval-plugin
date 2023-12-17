@@ -28,7 +28,7 @@ class MarkdownDocument(BaseModel):
     blob_data: List[bytes] = Field(description="The image or video content of the document")
 
 class BucketObject(BaseModel):
-    id: str = Field(description="Unique identifier for the bucket object.")
+    id: Optional[str] = Field(default=None, description="Unique identifier for the bucket object.")
     object_name: str
     object_type: Optional[str] = Field(default=None, description="Type of the object")
     size: Optional[int] = Field(default=None, description="Size of the object in bytes")
@@ -36,7 +36,7 @@ class BucketObject(BaseModel):
     type: Optional[str] = Field(default=None, description="File extension or MIME type")
 
 class Bucket(BaseModel):
-    id: str = Field(description="Unique identifier for the bucket.")
+    id: Optional[str] = Field(default=None, description="Unique identifier for the bucket.")
     name: str
     objects: List[BucketObject]
 
@@ -84,7 +84,7 @@ class DocumentChunkWithScore(DocumentChunk):
 class Document(BaseModel):
     id: str
     text: str
-    metadata: Optional[DocumentMetadata] = None
+    metadata: Optional[DocumentMetadata]
     file_path: Optional[str] = Field(default=None, description="File path in the storage system")
 
 class DocumentWithChunks(Document):
